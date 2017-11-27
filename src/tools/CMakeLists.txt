@@ -5,7 +5,7 @@ add_subdirectory(helper)
 add_executable(ice-gatherer
         ice-gatherer.c)
 target_link_libraries(ice-gatherer
-        rawrtc
+        rawrtc-static
         rawrtc-helper)
 install(TARGETS ice-gatherer
         DESTINATION bin)
@@ -14,7 +14,7 @@ install(TARGETS ice-gatherer
 add_executable(ice-transport-loopback
         ice-transport-loopback.c)
 target_link_libraries(ice-transport-loopback
-        rawrtc
+        rawrtc-static
         rawrtc-helper)
 install(TARGETS ice-transport-loopback
         DESTINATION bin)
@@ -23,7 +23,7 @@ install(TARGETS ice-transport-loopback
 add_executable(dtls-transport-loopback
         dtls-transport-loopback.c)
 target_link_libraries(dtls-transport-loopback
-        rawrtc
+        rawrtc-static
         rawrtc-helper)
 install(TARGETS dtls-transport-loopback
         DESTINATION bin)
@@ -34,7 +34,7 @@ if (SCTP_REDIRECT_TRANSPORT)
   add_executable(sctp-redirect-transport
           sctp-redirect-transport.c)
   target_link_libraries(sctp-redirect-transport
-          rawrtc
+          rawrtc-static
           rawrtc-helper)
   install(TARGETS sctp-redirect-transport
           DESTINATION bin)
@@ -45,7 +45,7 @@ endif ()
 add_executable(sctp-transport-loopback
         sctp-transport-loopback.c)
 target_link_libraries(sctp-transport-loopback
-        rawrtc
+        rawrtc-static
         rawrtc-helper)
 install(TARGETS sctp-transport-loopback
         DESTINATION bin)
@@ -54,7 +54,7 @@ install(TARGETS sctp-transport-loopback
 add_executable(data-channel-sctp-loopback
         data-channel-sctp-loopback.c)
 target_link_libraries(data-channel-sctp-loopback
-        rawrtc
+        rawrtc-static
         rawrtc-helper)
 install(TARGETS data-channel-sctp-loopback
         DESTINATION bin)
@@ -63,7 +63,7 @@ install(TARGETS data-channel-sctp-loopback
 add_executable(data-channel-sctp
         data-channel-sctp.c)
 target_link_libraries(data-channel-sctp
-        rawrtc
+        rawrtc-static
         rawrtc-helper)
 install(TARGETS data-channel-sctp
         DESTINATION bin)
@@ -72,7 +72,7 @@ install(TARGETS data-channel-sctp
 add_executable(data-channel-sctp-echo
         data-channel-sctp-echo.c)
 target_link_libraries(data-channel-sctp-echo
-        rawrtc
+        rawrtc-static
         rawrtc-helper)
 install(TARGETS data-channel-sctp-echo
         DESTINATION bin)

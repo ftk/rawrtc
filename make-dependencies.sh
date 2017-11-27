@@ -178,6 +178,7 @@ cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} -DSCTP_DEBUG=1 ..
 echo "Cleaning usrsctp"
 make clean
 echo "Building & installing usrsctp"
+sed -i 's/SCTP_DIAG_INFO_LEN 64/SCTP_DIAG_INFO_LEN 128/' ../usrsctplib/netinet/sctp_constants.h
 make install -j${THREADS}
 rm -f ${PREFIX}/lib/libusrsctp.so* ${PREFIX}/lib/libusrsctp.*dylib
 cd ${MAIN_DIR}

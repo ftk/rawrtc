@@ -53,23 +53,26 @@ if (APPLE)
             ${LIB_CORE_FOUNDATION_LIBRARIES})
 endif ()
 
+
+# Dependency: librew
+#pkg_check_modules(LIB_REW REQUIRED ${LIB_REW_VERISON})
+include_directories(${LIB_REW_STATIC_INCLUDE_DIRS})
+#link_directories(${LIB_REW_STATIC_LIBRARY_DIRS})
+list(APPEND rawrtc_DEP_LIBRARIES rew)
+
+# Dependency: libre
+#pkg_check_modules(LIB_RE REQUIRED ${LIB_RE_VERSION})
+include_directories(${LIB_RE_STATIC_INCLUDE_DIRS})
+link_directories(${LIB_RE_STATIC_LIBRARY_DIRS})
+list(APPEND rawrtc_DEP_LIBRARIES re)
+
+
 # Dependency: OpenSSL
 pkg_check_modules(LIB_OPENSSL REQUIRED ${OPENSSL_VERSION})
 include_directories(${LIB_OPENSSL_INCLUDE_DIRS})
 link_directories(${LIB_OPENSSL_LIBRARY_DIRS})
 list(APPEND rawrtc_DEP_LIBRARIES ${LIB_OPENSSL_LIBRARIES})
 
-# Dependency: libre
-pkg_check_modules(LIB_RE REQUIRED ${LIB_RE_VERSION})
-include_directories(${LIB_RE_STATIC_INCLUDE_DIRS})
-link_directories(${LIB_RE_STATIC_LIBRARY_DIRS})
-list(APPEND rawrtc_DEP_LIBRARIES ${LIB_RE_STATIC_LIBRARIES})
-
-# Dependency: librew
-pkg_check_modules(LIB_REW REQUIRED ${LIB_REW_VERISON})
-include_directories(${LIB_REW_STATIC_INCLUDE_DIRS})
-link_directories(${LIB_REW_STATIC_LIBRARY_DIRS})
-list(APPEND rawrtc_DEP_LIBRARIES ${LIB_REW_STATIC_LIBRARIES})
 
 # Dependency: usrsctp
 # TODO: Use the pkg-config file of usrsctp once it has been added
@@ -79,6 +82,8 @@ get_filename_component(LIB_USRSCTP_LIBRARY_DIRS ${LIB_USRSCTP_LIBRARIES} DIRECTO
 include_directories(${LIB_USRSCTP_INCLUDE_DIRS})
 link_directories(${LIB_USRSCTP_LIBRARY_DIRS})
 list(APPEND rawrtc_DEP_LIBRARIES ${LIB_USRSCTP_LIBRARIES})
+
+list(APPEND rawrtc_DEP_LIBRARIES ws2_32 iphlpapi crypto)
 
 # Dependency versions
 set(PKG_CONFIG_REQUIRES "")
