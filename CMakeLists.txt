@@ -56,14 +56,17 @@ endif ()
 
 # Dependency: librew
 #pkg_check_modules(LIB_REW REQUIRED ${LIB_REW_VERISON})
-include_directories(${LIB_REW_STATIC_INCLUDE_DIRS})
+#include_directories(${LIB_REW_STATIC_INCLUDE_DIRS})
+include_directories(${CMAKE_INSTALL_PREFIX}/include/rew)
 #link_directories(${LIB_REW_STATIC_LIBRARY_DIRS})
 list(APPEND rawrtc_DEP_LIBRARIES rew)
 
 # Dependency: libre
 #pkg_check_modules(LIB_RE REQUIRED ${LIB_RE_VERSION})
-include_directories(${LIB_RE_STATIC_INCLUDE_DIRS})
-link_directories(${LIB_RE_STATIC_LIBRARY_DIRS})
+#include_directories(${LIB_RE_STATIC_INCLUDE_DIRS})
+#link_directories(${LIB_RE_STATIC_LIBRARY_DIRS})
+include_directories(${CMAKE_INSTALL_PREFIX}/include/re)
+link_directories(${CMAKE_INSTALL_PREFIX}/lib)
 list(APPEND rawrtc_DEP_LIBRARIES re)
 
 
@@ -83,7 +86,9 @@ include_directories(${LIB_USRSCTP_INCLUDE_DIRS})
 link_directories(${LIB_USRSCTP_LIBRARY_DIRS})
 list(APPEND rawrtc_DEP_LIBRARIES ${LIB_USRSCTP_LIBRARIES})
 
-list(APPEND rawrtc_DEP_LIBRARIES ws2_32 iphlpapi crypto)
+if(WIN32)
+  list(APPEND rawrtc_DEP_LIBRARIES ws2_32 iphlpapi crypto)
+endif()
 
 # Dependency versions
 set(PKG_CONFIG_REQUIRES "")
