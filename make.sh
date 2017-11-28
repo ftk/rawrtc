@@ -30,28 +30,32 @@ set -v
 mkdir -p build
 cd build
 
-
+# usrsctp
 mkdir -p usrsctp
+[ "$clean" == 1 ] && rm -r -- usrsctp/*
 cd usrsctp
 
 cmake $SRCDIR/dep/usrsctp -DCMAKE_INSTALL_PREFIX="$PREFIX" -Dsctp_debug=$DEBUG -Dsctp_werror=0 "$CMAKE_FLAGS" -DCMAKE_BUILD_TYPE=$build_type
-[ "$clean" == 1 ] && make clean
 make -j $jobs install 
 
 cd ..
 
-[ "$clean" == 1 ] && make -C $SRCDIR/dep/re PREFIX="$PREFIX" USE_ZLIB= USE_OPENSSL=y clean
-make -C $SRCDIR/dep/re PREFIX="$PREFIX" USE_ZLIB= USE_OPENSSL=y -j $jobs install
+RE_PARAMS="USE_ZLIB=  USE_OPENSSL=y USE_OPENSSL_DTLS=y USE_OPENSSL_RTSP=y"
 
-[ "$clean" == 1 ] && make -C $SRCDIR/dep/rew PREFIX="$PREFIX" USE_ZLIB= USE_OPENSSL=y clean
-make -C $SRCDIR/dep/rew PREFIX="$PREFIX" USE_ZLIB= USE_OPENSSL=y -j $jobs install
+# re
+[ "$clean" == 1 ] && make -C $SRCDIR/dep/re $RE_PARAMS clean
+make -C $SRCDIR/dep/re $RE_PARAMS -j $jobs install
 
+# rew
+[ "$clean" == 1 ] && make -C $SRCDIR/dep/rew $RE_PARAMS clean
+make -C $SRCDIR/dep/rew $RE_PARAMS -j $jobs install
+
+# rawrtc
+mkdir -p rawrtc
+[ "$clean" == 1 ] && rm -r -- rawrtc/*
+cd rawrtc
 
 cmake $SRCDIR/ -DCMAKE_INSTALL_PREFIX="$PREFIX"  "$CMAKE_FLAGS"  -DCMAKE_BUILD_TYPE=$build_type
-[ "$clean" == 1 ] && make clean
 make -j $jobs install
 
-cd ..
-
-
-
+cd ../..
