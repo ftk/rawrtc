@@ -23,7 +23,8 @@ before_build:
 # msys2 for bash, make
 - set Path=C:\msys64\usr\bin;%Path%
 # gcc
-- set Path=%MINGW_DIR%\bin;%Path%
+- set Path=C:\%MINGW%\bin;%Path%
+#- set Path=%MINGW_DIR%\bin;%Path%
 # openssl
 - set SYSROOT_ALT=%OPENSSL_DIR%
 - gcc --version
