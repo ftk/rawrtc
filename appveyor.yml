@@ -1,0 +1,45 @@
+# See http://www.appveyor.com/docs/appveyor-yml
+
+version: '{build}'
+
+
+clone_depth: 5
+
+environment:
+  matrix:
+  - MINGW: mingw64
+
+  - MINGW: mingw32
+
+install:
+- git submodule update --init
+# msys2 for bash, make
+- set Path=C:\msys64\usr\bin;%Path%
+# gcc
+- set Path=C:\msys64\%MINGW%\bin;%Path%
+
+before_build:
+- echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
+- gcc -v
+- bash --version
+- make --version
+- cmake --version
+
+build_script:
+- set jobs=%NUMBER_OF_PROCESSORS%
+- bash ./make.sh
+
+after_build:
+- git status
+- git diff
+
+on_success:
+
+test: off
+
+test_script:
+- .\prefix\bin\ice-gatherer.exe
+
+artifacts:
+- path: prefix
+  name: bin
