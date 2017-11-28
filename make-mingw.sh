@@ -6,6 +6,8 @@ CMAKE_FLAGS=-G"Unix Makefiles"
 
 mkdir -p prefix
 
+jobs ?= 4
+
 export PREFIX="$PWD/prefix"
 SRCDIR="$PWD"
 
@@ -16,18 +18,18 @@ cd build
 mkdir -p usrsctp
 cd usrsctp
 
-cmake $SRCDIR/dep/usrsctp -DCMAKE_INSTALL_PREFIX="$PREFIX" -DSCTP_DEBUG=1 -Dsctp_werror=0 "$CMAKE_FLAGS"
-make install -j 4
+cmake $SRCDIR/dep/usrsctp -DCMAKE_INSTALL_PREFIX="$PREFIX" -Dsctp_debug=1 -Dsctp_werror=0 -DCMAKE_C_FLAGS=-D_WIN32_WINNT=0x0601 "$CMAKE_FLAGS"
+make -j $jobs install 
 
 cd ..
 
-make -C $SRCDIR/dep/re PREFIX="$PREFIX" USE_ZLIB= USE_OPENSSL=y -j 4 install
+make -C $SRCDIR/dep/re PREFIX="$PREFIX" USE_ZLIB= USE_OPENSSL=y -j $jobs install
 
-make -C $SRCDIR/dep/rew PREFIX="$PREFIX" USE_ZLIB= USE_OPENSSL=y -j 4 install
+make -C $SRCDIR/dep/rew PREFIX="$PREFIX" USE_ZLIB= USE_OPENSSL=y -j $jobs install
 
 
 cmake $SRCDIR/ -DCMAKE_INSTALL_PREFIX="$PREFIX"  "$CMAKE_FLAGS"
-make -j 4 install
+make -j $jobs install
 
 cd ..
 
