@@ -17,9 +17,6 @@ environment:
 
 install:
 - git submodule update --init
-
-before_build:
-- echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
 # msys2 for bash, make
 - set Path=C:\msys64\usr\bin;%Path%
 # gcc
@@ -27,6 +24,10 @@ before_build:
 #- set Path=%MINGW_DIR%\bin;%Path%
 # openssl
 - set SYSROOT_ALT=%OPENSSL_DIR%
+- pacman -S --noconfirm mingw64/mingw-w64-x86_64-gcc
+
+before_build:
+- echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
 - gcc --version
 - bash --version
 - make --version
