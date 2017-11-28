@@ -1,0 +1,11 @@
+[submodule "dep/re"]
+	path = dep/re
+	url = git@github.com:ftk/re.git
+	branch = rawrtc
+[submodule "dep/rew"]
+	path = dep/rew
+	url = https://github.com/alfredh/rew.git
+[submodule "dep/usrsctp"]
+	path = dep/usrsctp
+	url = https://github.com/ftk/usrsctp.git
+	branch = usrsctp-for-rawrtc
