@@ -24,7 +24,7 @@ install:
 - set MSYSTEM=%MINGW%
 #- set Path=%MINGW_DIR%\bin;%Path%
 # openssl
-- set SYSROOT_ALT=%OPENSSL_DIR%
+#- set SYSROOT_ALT=%OPENSSL_DIR%
 
 before_build:
 - echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
@@ -43,6 +43,9 @@ after_build:
 on_success:
 
 test: off
+
+test_script:
+- prefix/bin/ice-gatherer.exe
 
 artifacts:
 - path: prefix
