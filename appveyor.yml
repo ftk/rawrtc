@@ -1,0 +1,47 @@
+# See http://www.appveyor.com/docs/appveyor-yml
+
+version: '{build}'
+
+
+clone_depth: 5
+
+environment:
+  matrix:
+  - MINGW: mingw64
+    MINGW_DIR: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1
+    OPENSSL_DIR: C:\OpenSSL-Win64
+
+  - MINGW: mingw32
+    MINGW_DIR: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1
+    OPENSSL_DIR: C:\OpenSSL-Win32
+
+install:
+- git submodule update --init
+
+before_build:
+- echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
+# msys2 for bash, make
+- set Path=C:\msys64\bin;%Path%
+# gcc
+- set Path=%MINGW_DIR%\bin;%Path%
+# openssl
+- set SYSROOT_ALT=%OPENSSL_DIR%
+- gcc --version
+- bash --version
+- make --version
+- cmake --version
+
+build_script:
+- bash ./make-mingw.sh
+
+after_build:
+- git status
+- git diff
+
+on_success:
+
+test: off
+
+artifacts:
+- path: prefix
+  name: bin
