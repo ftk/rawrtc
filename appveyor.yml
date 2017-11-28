@@ -8,11 +8,11 @@ clone_depth: 5
 environment:
   matrix:
   - MINGW: mingw64
-    MINGW_DIR: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1
+    MINGW_DIR: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64
     OPENSSL_DIR: C:\OpenSSL-Win64
 
   - MINGW: mingw32
-    MINGW_DIR: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1
+    MINGW_DIR: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32
     OPENSSL_DIR: C:\OpenSSL-Win32
 
 install:
@@ -21,7 +21,7 @@ install:
 before_build:
 - echo "NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%"
 # msys2 for bash, make
-- set Path=C:\msys64\bin;%Path%
+- set Path=C:\msys64\usr\bin;%Path%
 # gcc
 - set Path=%MINGW_DIR%\bin;%Path%
 # openssl
