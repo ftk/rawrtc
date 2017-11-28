@@ -1,6 +1,6 @@
 [submodule "dep/re"]
 	path = dep/re
-	url = git@github.com:ftk/re.git
+	url = https://github.com/ftk/re.git
 	branch = rawrtc
 [submodule "dep/rew"]
 	path = dep/rew
