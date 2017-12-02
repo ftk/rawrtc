@@ -94,23 +94,16 @@ before_install:
 
 # Make library dependencies
 install:
-  - ./make-dependencies.sh
 
 # Set environment vars & enable core dumps
 before_script:
-  - export BUILD_PATH=$HOME/build/rawrtc/rawrtc/build
-  - export LD_LIBRARY_PATH=${BUILD_PATH}/prefix/lib:${LD_LIBRARY_PATH}
-  - export PATH=${BUILD_PATH}/prefix/bin:${PATH}
+  - export LD_LIBRARY_PATH=${PWD}/prefix/lib:${LD_LIBRARY_PATH}
+  - export PATH=${PWD}/prefix/bin:${PATH}
   - ulimit -c unlimited -S
 
 # Install library and run tests
 script:
-  - cd build
-  - >
-    cmake
-    -DCMAKE_INSTALL_PREFIX=${BUILD_PATH}/prefix
-    -DCMAKE_C_FLAGS="-Werror -Wall -Wno-unused-function"
-    .. && make install
+  - ./make.sh
   - ice-gatherer
 #  - make test
 
