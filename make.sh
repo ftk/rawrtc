@@ -36,7 +36,7 @@ cd build
 mkdir -p usrsctp
 cd usrsctp
 
-cmake $SRCDIR/dep/usrsctp -DCMAKE_INSTALL_PREFIX="$PREFIX" -Dsctp_debug=$DEBUG -Dsctp_werror=0 "$CMAKE_FLAGS" -DCMAKE_BUILD_TYPE=$build_type
+cmake $SRCDIR/dep/usrsctp -DCMAKE_INSTALL_PREFIX="$PREFIX" -Dsctp_debug=$DEBUG -Dsctp_werror=0 "$CMAKE_FLAGS" -DCMAKE_BUILD_TYPE=$build_type -DCMAKE_C_FLAGS=-fPIC
 make -j $jobs install 
 
 cd ..
