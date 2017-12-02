@@ -17,8 +17,9 @@ else
 	DEBUG=1
 fi
 
-export PREFIX="$PWD/prefix"
 SRCDIR="$PWD"
+[ -z "$PREFIX" ] && PREFIX="$PWD/prefix"
+export PREFIX
 
 [ -z "$jobs" ] && jobs=4
 
@@ -28,11 +29,11 @@ set -v
 
 
 mkdir -p build
+[ "$clean" == 1 ] && rm -r -- build/*
 cd build
 
 # usrsctp
 mkdir -p usrsctp
-[ "$clean" == 1 ] && rm -r -- usrsctp/*
 cd usrsctp
 
 cmake $SRCDIR/dep/usrsctp -DCMAKE_INSTALL_PREFIX="$PREFIX" -Dsctp_debug=$DEBUG -Dsctp_werror=0 "$CMAKE_FLAGS" -DCMAKE_BUILD_TYPE=$build_type
@@ -52,7 +53,6 @@ make -C $SRCDIR/dep/rew $RE_PARAMS -j $jobs install
 
 # rawrtc
 mkdir -p rawrtc
-[ "$clean" == 1 ] && rm -r -- rawrtc/*
 cd rawrtc
 
 cmake $SRCDIR/ -DCMAKE_INSTALL_PREFIX="$PREFIX"  "$CMAKE_FLAGS"  -DCMAKE_BUILD_TYPE=$build_type
